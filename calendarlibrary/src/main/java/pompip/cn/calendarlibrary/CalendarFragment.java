@@ -282,7 +282,7 @@ public class CalendarFragment extends Fragment {
 
     }
 
-    interface OnCalendarSelectedListener{
+    public interface OnCalendarSelectedListener{
         void onSelected(Date date);
     }
 }
