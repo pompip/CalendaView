@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="style_text_weekday">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="style_text_weekday.weekend">
+        <item name="android:textColor">@color/blue</item>
+    </style>
+
+    <style name="item_style_text_weekday">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="style_text_month">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <color name="black">#000</color>
+    <color name="blue">#34c108</color>
+</resources>
