@@ -1,15 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+
     android:layout_height="match_parent"
     tools:context=".MainActivity">
-
-    <fragment
-        android:tag="calendarFragment"
-        android:name="pompip.cn.calendarlibrary.CalendarFragment"
+    <LinearLayout
+        android:gravity="center_vertical"
+        android:background="@color/blue"
+        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="wrap_content">
 
-</android.support.constraint.ConstraintLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:padding="5dp"
+        android:layout_weight="1"
+        android:id="@+id/horizontal_calender_recycler_view"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"/>
+        <View
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="@android:color/white"
+            android:layout_width="1dp"
+            android:layout_height="match_parent"/>
+    <TextView
+        android:textColor="@android:color/white"
+        android:id="@+id/tv_to_calendar"
+        android:gravity="center"
+        android:text="日历"
+
+        android:layout_width="50dp"
+        android:layout_height="50dp" />
+
+    </LinearLayout>
+</LinearLayout>

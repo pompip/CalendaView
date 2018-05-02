@@ -43,7 +43,7 @@ public class CalendarFragment extends Fragment {
         recycler_view.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, true));
         CalendarAdapter adapter = new CalendarAdapter();
         recycler_view.setAdapter(adapter);
-        recycler_view.smoothScrollToPosition(adapter.getItemCount());
+        recycler_view.scrollToPosition(adapter.getItemCount()-1);
 
     }
 
@@ -157,11 +157,10 @@ public class CalendarFragment extends Fragment {
         Calendar calendar = Calendar.getInstance(Locale.CHINA);
         calendar.setTime(currentData);
         calendar.set(Calendar.DAY_OF_MONTH, 1);
-        int currentMonth = calendar.get(Calendar.MONTH);
+        calendar.set(Calendar.MONTH, calendar.get(Calendar.MONTH)-12);
         for (int i = 0; i < 12; i++) { //计算今年的月份
-            Calendar cloneCalendar = (Calendar) calendar.clone();
-            cloneCalendar.set(Calendar.MONTH, currentMonth - i);
-            Date date = cloneCalendar.getTime();
+            calendar.set(Calendar.MONTH,calendar.get( Calendar.MONTH) + 1);
+            Date date = calendar.getTime();
             List<DateInfo> dateInfoList = initDataList(date);
             monthMap.put(date, dateInfoList);
         }
@@ -211,7 +210,7 @@ public class CalendarFragment extends Fragment {
             dateInfo.setDate(calendar.getTime());
             dateInfo.setType(DateInfo.CURRENT_MONTH);  //标记日期信息的类型为当月
             dateInfo.setWeekday(calendar.get(Calendar.DAY_OF_WEEK));
-            dateInfo.setIsToday(todayCalender.equals(calendar));
+            dateInfo.setIsToday(todayCalender.get(Calendar.DAY_OF_YEAR) ==calendar.get(Calendar.DAY_OF_YEAR));
             dateList.add(dateInfo);
             calendar.add(Calendar.DAY_OF_MONTH, 1); //向后推移一天
         }
