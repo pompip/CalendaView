@@ -20,10 +20,12 @@ import java.util.Locale;
 
 import pompip.cn.calendarlibrary.CalendarFragment;
 import pompip.cn.calendarlibrary.CalendarSelectActivity;
+import pompip.cn.calendarlibrary.OnCalendarSelectedListener;
 
 public class MainActivity extends AppCompatActivity {
 
     private RecyclerView horizontal_calender_recycler_view;
+    private OnCalendarSelectedListener onCalendarSelectedListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,10 +39,18 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         initCalendar();
+        onCalendarSelectedListener = new OnCalendarSelectedListener() {
+            @Override
+            public void onSelected(Date date) {
+                String format = new SimpleDateFormat("yyyy-MM-dd E", Locale.CHINA).format(date);
+                Toast.makeText(MainActivity.this, format, Toast.LENGTH_SHORT).show();
+            }
+        };
         horizontal_calender_recycler_view.setLayoutManager(
                 new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         horizontal_calender_recycler_view.setAdapter(new HorizontalAdapter());
         horizontal_calender_recycler_view.scrollToPosition(dateArrayList.size()-1);
+
 
     }
 
@@ -55,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
             dateArrayList.add(calendar.getTime());
         }
     }
+
 
     class HorizontalAdapter extends RecyclerView.Adapter {
 
@@ -85,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
         public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, final int position) {
             TextView week_day = holder.itemView.findViewById(R.id.week_day);
             TextView month_day = holder.itemView.findViewById(R.id.month_day);
-            Date item = dateArrayList.get(position);
+            final Date item = dateArrayList.get(position);
             current.setTime(item);
             if (current.get(Calendar.DAY_OF_YEAR) ==now.get(Calendar.DAY_OF_YEAR)){
 
@@ -95,8 +106,9 @@ public class MainActivity extends AppCompatActivity {
             }
 
             month_day.setText(monthDayFormat.format(item));
-            week_day.setTextColor(getResources().getColor(position != selectPosition ? android.R.color.white : R.color.blue));
-            month_day.setTextColor(getResources().getColor(position != selectPosition ? android.R.color.white : R.color.blue));
+            int color = getResources().getColor(position != selectPosition ? android.R.color.white : R.color.blue);
+            week_day.setTextColor(color);
+            month_day.setTextColor(color);
             holder.itemView.setSelected(position == selectPosition);
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -106,6 +118,9 @@ public class MainActivity extends AppCompatActivity {
                     horizontal_calender_recycler_view.scrollToPosition(selectPosition);
                     notifyItemChanged(selectPosition);
                     notifyItemChanged(oldPosition);
+                    if (onCalendarSelectedListener!=null){
+                        onCalendarSelectedListener.onSelected(item);
+                    }
                 }
             });
 

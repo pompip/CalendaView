@@ -16,7 +16,7 @@ public class CalendarSelectActivity extends AppCompatActivity {
         setContentView(R.layout.activity_calendar_select);
         final SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd", Locale.CHINA);
         CalendarFragment calendarFragment = (CalendarFragment) getSupportFragmentManager().findFragmentByTag("calendarFragment");
-        calendarFragment.setOnCalendarSelectedListener(new CalendarFragment.OnCalendarSelectedListener() {
+        calendarFragment.setOnCalendarSelectedListener(new OnCalendarSelectedListener() {
             @Override
             public void onSelected(Date date) {
                 Toast.makeText(CalendarSelectActivity.this, format.format(date), Toast.LENGTH_SHORT).show();
